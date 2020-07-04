@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en, ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>User page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="/css/main.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div id="ajax"></div>
+<br>
+<!--Панель навигации-->
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow" id="nav">
+    <a class="navbar-brand font-weight-bold" sec:authentication="name"></a>
+    <a class="navbar-brand">with roles:</a>
+    <a class="navbar-brand" th:each="role: ${#authentication.authorities}" th:text="${role.authority}"></a>
+    <a class="navbar-text ml-auto" th:href="@{/logout}">Logout</a>
+</nav>
+<br>
+<!--Навигация с кнопками-->
+<div style="font-size: 0; position: relative;">
+    <ul class="nav flex-column nav-pills" aria-orientation="vertical" id="v-pills-tab" role="tablist"
+        style="width: 16%; font-size: 1rem; position: absolute; left: 0">
+        <li class=active>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link active" id="v-pills-admin-tab" data-toggle="pill"
+               href="#admin-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Admin</a>
+        </li>
+        <li>
+            <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" id="v-pills-user-tab" data-toggle="pill"
+               href="#user-profile" role="tab" aria-controls="v-pills-home" aria-selected="true">User</a>
+        </li>
+    </ul>
+    <div class="tab-content bg-light text-dark"
+         style="width: 84%; font-size: 1rem; height: 94vh; padding: 0 20px 0 20px; position: absolute; right: 0;">
+        <!--        Страница админа-->
+        <div sec:authorize="hasRole('ROLE_ADMIN')" class="tab-pane fade show active" id="admin-profile" role="tabpanel"
+             aria-labelledby="v-pills-profile-tab">
+            <h1>Admin panel</h1>
+            <br>
+            <!-- Вкладки -->
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#usersTable">Users table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#newUser">New user</a>
+                </li>
+            </ul>
+            <!-- Панели -->
+            <div class="tab-content">
+                <!--            Панель с таблицей пользователей-->
+                <div id="usersTable" class="container-fluid tab-pane active">
+                    <div class="card">
+                        <div class="card-header font-weight-bold" style="font-size: 20px">
+                            All users
+                        </div>
+                        <div id="all-users-table">
+                            <table class="table table-hover" style="margin: fill" id="tabAdmins">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Roles</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--            Панель добавления пользователя-->
+                <div id="newUser" class="container-fluid tab-pane fade">
+                    <div class="card">
+                        <div class="card-header font-weight-bold" style="font-size: 20px">
+                            Add new user
+                        </div>
+                        <!--                        Панель добавления юзера-->
+                        <div th:insert="fragment/addUserForm :: addUserFragment"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--        Страница юзера-->
+        <div sec:authorize="hasRole('ROLE_USER')" class="tab-pane fade" id="user-profile" role="tabpanel"
+             aria-labelledby="v-pills-home-tab">
+            <h1>User information-page</h1>
+            <br>
+            <!--    Таблица юзера-->
+            <div class="card">
+                <div class="card-header font-weight-bold" style="font-size: 20px">
+                    About user
+                </div>
+                <div id="current-user-table">
+                    <table class="table table-hover" style="margin: fill">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Roles</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно редактирования-->
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="edit"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="edit">Edit user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body"
+                 th:insert="fragment/editForm :: editFormFragment">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="buttonEditSubmit" class="btn btn-primary">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Модальное окно удаления-->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="delete"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="delete">Delete user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body"
+                 th:insert="fragment/deleteForm :: deleteFormFragment">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" id="buttonDeleteSubmit" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+<script th:if="${#authorization.expression('hasAuthority(''ROLE_USER'')')}" type="text/javascript"
+        src="/js/user.js"></script>
+<script th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}" type="text/javascript"
+        src="/js/admin.js"></script>
+<script th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}" type="text/javascript"
+        src="/js/functions.js"></script>
+</body>
+</html>

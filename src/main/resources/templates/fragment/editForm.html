@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="editFormFragment" class="form-horizontal text-center mx-auto font-weight-bold"
+     role="form" id="edit-form">
+
+    <div class="form-group">
+        <label class="control-label"
+               for="idInputEdit">ID</label>
+        <input type="text" class="form-control"
+               id="idInputEdit" readonly/>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label"
+               for="usernameInputEdit">Username</label>
+        <input type="text" class="form-control"
+               id="usernameInputEdit"/>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label"
+               for="emailInputEdit">Email</label>
+        <input type="email" class="form-control"
+               id="emailInputEdit"/>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label"
+               for="passwordInputEdit">Password</label>
+        <input type="password" class="form-control"
+               id="passwordInputEdit"/>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label"
+               for="rolesInputEdit">Role</label>
+        <select class="form-control"
+                id="rolesInputEdit"
+                multiple="multiple"></select>
+    </div>
+</div>
+</body>
+</html>

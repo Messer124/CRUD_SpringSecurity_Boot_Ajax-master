@@ -1,0 +1,74 @@
+#nav {
+    padding: 0 15px 0 15px !important;
+}
+#usersTable {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+#home, #menu1 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+#row-container-fluid {
+    padding: unset;
+    margin: unset;
+    height: 100vh;
+}
+
+#navPanel {
+    padding: unset;
+}
+
+#adminPanel {
+    padding: unset;
+    background-color: #f5f5f5;
+}
+
+#delete-form {
+    width: 250px;
+}
+
+#new-form {
+    width: 350px;
+    padding: 20px;
+}
+
+#edit-form {
+    width: 250px;
+}
+
+#rolesInputEdit {
+    height: 60px;
+}
+
+#rolesInputNew {
+    height: 60px;
+}
+
+#rolesInputDelete {
+    height: 60px;
+}
+
+#v-pills-tabContent {
+    margin: 20px;
+}
+
+.card-header {
+    font-size: 20px;
+}
+
+.flex-column {
+    margin-top: 10px;
+}
+
+#all-users-table {
+    padding: 20px;
+}
+
+#current-user-table {
+    padding: 20px;
+}
+#tabAdmins tbody td {
+    width: 20%;
+}
