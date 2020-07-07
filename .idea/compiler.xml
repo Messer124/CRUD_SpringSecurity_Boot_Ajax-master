@@ -7,9 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="CRUD_SpringMVC-master" />
         <module name="CRUD_SpringSecurity_Boot_Ajax-master" />
         <module name="CRUD_SpringMVC" />
+        <module name="CRUD_SpringMVC-master" />
         <module name="CRUD_SpringSecurity_Boot_Bootstrap_Thymeleaf-master" />
       </profile>
     </annotationProcessing>
