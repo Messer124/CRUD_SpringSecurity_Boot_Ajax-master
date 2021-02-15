@@ -27,7 +27,9 @@ function getAllUsers() {
                     $("<td>").append(`<button type='button' data-toggle='modal' class='btn-info btn' 
                                           data-target='#editUserModal' data-user-id=${user.id}>Edit</button> 
                                           <button type='button' data-toggle='modal' class='btn btn-danger' 
-                                          data-target='#deleteUserModal' data-user-id=${user.id}>Delete</button>`)
+                                          data-target='#deleteUserModal' data-user-id=${user.id}>Delete</button>
+                                          <button type='button' data-toggle='modal' class='btn btn-success' 
+                                          data-target='#mailUserModal' data-user-email=${user.email}>Mail</button>`)
                 ));
         });
     });

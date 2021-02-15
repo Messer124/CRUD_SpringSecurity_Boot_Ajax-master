@@ -7,9 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="CRUD_SpringSecurity_Boot_Ajax-master" />
         <module name="CRUD_SpringMVC" />
+        <module name="pre_3_1_1" />
         <module name="CRUD_SpringMVC-master" />
+        <module name="CRUD_SpringSecurity_Boot_Ajax-master" />
         <module name="CRUD_SpringSecurity_Boot_Bootstrap_Thymeleaf-master" />
       </profile>
     </annotationProcessing>
@@ -19,6 +20,7 @@
       <module name="CRUD_SpringMVC-master" options="-parameters" />
       <module name="CRUD_SpringSecurity_Boot_Ajax-master" options="-parameters" />
       <module name="CRUD_SpringSecurity_Boot_Bootstrap_Thymeleaf-master" options="-parameters" />
+      <module name="pre_3_1_1" options="-parameters" />
     </option>
   </component>
 </project>

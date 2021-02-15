@@ -114,6 +114,21 @@ $(() => {
         });
     })
 
+    $("#mailUserModal").on('show.bs.modal', (e) => {
+        $("#buttonSendSubmit").on('click', (e) => {
+            $.ajax({
+                url: "/rest/sendMail/" + $(e.relatedTarget).data("user-email"),
+                type: "POST",
+                contentType: 'text/plain',
+                data: document.getElementById('msgBodyTxt').value,
+            }).done((msgSave) => {
+                $('#buttonSendClose').click();
+                document.getElementById('msgBodyTxt').value = '';
+            });
+        });
+    });
+
+
     $('[href="#newUser"]').on('show.bs.tab', (e) => {
         $(() => {
             $("#usernameInputNew").empty();
