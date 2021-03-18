@@ -16,7 +16,7 @@
     <a class="navbar-brand font-weight-bold" sec:authentication="name"></a>
     <a class="navbar-brand">with roles:</a>
     <a class="navbar-brand" th:each="role: ${#authentication.authorities}" th:text="${role.authority}"></a>
-    <a class="navbar-text ml-auto" th:href="@{/logout}">Logout</a>
+    <a class="navbar-text ml-auto" th:href="@{/logout}" id="logout_btn">Logout</a>
 </nav>
 <br>
 <!--Навигация с кнопками-->
@@ -197,5 +197,6 @@
         src="/js/admin.js"></script>
 <script th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}" type="text/javascript"
         src="/js/functions.js"></script>
+<script type="text/javascript" src="/js/LS_clearing.js"></script>
 </body>
 </html>

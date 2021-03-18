@@ -1,4 +1,4 @@
-package app.dao;
+package app.dao.abstr;
 
 import app.model.Role;
 

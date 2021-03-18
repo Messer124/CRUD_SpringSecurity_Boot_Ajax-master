@@ -2,7 +2,8 @@ function getAllRoles() {
     $.ajax({
         url: "/rest/getAllRoles",
         type: "GET",
-        dataType: "json"
+        dataType: "json",
+        headers: {'Authorization': localStorage.getItem('Authorization')}
     }).done((msg) => {
         allRoles = JSON.parse(JSON.stringify(msg));
     })
@@ -12,7 +13,8 @@ function getAllUsers() {
     $.ajax({
         url: "/rest/getAllUsers",
         type: "GET",
-        dataType: "json"
+        dataType: "json",
+        headers: {'Authorization': localStorage.getItem('Authorization')}
     }).done((msg) => {
         allUsers = JSON.parse(JSON.stringify(msg));
         $("#all-users-table tbody").empty();

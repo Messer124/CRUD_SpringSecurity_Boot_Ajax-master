@@ -15,7 +15,8 @@ $(() => {
         $.ajax({
             url: "/rest/getUserById/" + userId,
             type: "GET",
-            dataType: "json"
+            dataType: "json",
+            headers: {'Authorization': localStorage.getItem('Authorization')}
         }).done((msg) => {
 
             let user = JSON.parse(JSON.stringify(msg));
@@ -47,12 +48,14 @@ $(() => {
                     type: "PUT",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    data: JSON.stringify(editUser)
+                    data: JSON.stringify(editUser),
+                    headers: {'Authorization': localStorage.getItem('Authorization')}
                 }).done((msgUpdate) => {
                     $.ajax({
                         url: "/rest/getCurrentUser",
                         type: "GET",
-                        dataType: "json"
+                        dataType: "json",
+                        headers: {'Authorization': localStorage.getItem('Authorization')}
                     }).done((currentUser) => {
                         if (currentUser.username === user.username) {
                             if (currentUser.roles.length === 1) {
@@ -85,7 +88,8 @@ $(() => {
         $.ajax({
             url: "/rest/getUserById/" + userId,
             type: "GET",
-            dataType: "json"
+            dataType: "json",
+            headers: {'Authorization': localStorage.getItem('Authorization')}
         }).done((msg) => {
             let user = JSON.parse(JSON.stringify(msg));
 
@@ -105,7 +109,8 @@ $(() => {
                 $.ajax({
                     url: "/rest/deleteUserById/" + userId,
                     type: "DELETE",
-                    dataType: "text"
+                    dataType: "text",
+                    headers: {'Authorization': localStorage.getItem('Authorization')}
                 }).done((deleteMsg) => {
                     $("#deleteUserModal").modal('hide');
                     getAllUsers();
@@ -115,12 +120,14 @@ $(() => {
     })
 
     $("#mailUserModal").on('show.bs.modal', (e) => {
+        let mail = $(e.relatedTarget).data("user-email");
         $("#buttonSendSubmit").on('click', (e) => {
             $.ajax({
-                url: "/rest/sendMail/" + $(e.relatedTarget).data("user-email"),
+                url: "/rest/sendMail/" + mail,
                 type: "POST",
                 contentType: 'text/plain',
                 data: document.getElementById('msgBodyTxt').value,
+                headers: {'Authorization': localStorage.getItem('Authorization')}
             }).done((msgSave) => {
                 $('#buttonSendClose').click();
                 document.getElementById('msgBodyTxt').value = '';
@@ -158,7 +165,8 @@ $(() => {
             type: "POST",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            data: JSON.stringify(newUser)
+            data: JSON.stringify(newUser),
+            headers: {'Authorization': localStorage.getItem('Authorization')}
         }).done((msgSave) => {
             let fields = document.querySelectorAll("#new-form div input, #new-form div select");
             for (let i = 0; i < fields.length; i++) {

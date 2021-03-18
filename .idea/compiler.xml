@@ -10,6 +10,7 @@
         <module name="CRUD_SpringMVC" />
         <module name="pre_3_1_1" />
         <module name="CRUD_SpringMVC-master" />
+        <module name="CRUD_Spring" />
         <module name="CRUD_SpringSecurity_Boot_Ajax-master" />
         <module name="CRUD_SpringSecurity_Boot_Bootstrap_Thymeleaf-master" />
       </profile>
@@ -17,6 +18,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="CRUD_Spring" options="-parameters" />
       <module name="CRUD_SpringMVC-master" options="-parameters" />
       <module name="CRUD_SpringSecurity_Boot_Ajax-master" options="-parameters" />
       <module name="CRUD_SpringSecurity_Boot_Bootstrap_Thymeleaf-master" options="-parameters" />

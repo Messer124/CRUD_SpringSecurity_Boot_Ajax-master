@@ -1,9 +1,11 @@
-package app.dao;
+package app.dao.impl;
 
+import app.dao.abstr.UserRepository;
 import app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;

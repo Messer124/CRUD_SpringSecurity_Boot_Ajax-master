@@ -1,6 +1,6 @@
 package app.controller;
 
-import app.dao.RoleRepositoryImpl;
+import app.dao.impl.RoleRepositoryImpl;
 import app.model.Role;
 import app.model.User;
 import app.service.UserService;

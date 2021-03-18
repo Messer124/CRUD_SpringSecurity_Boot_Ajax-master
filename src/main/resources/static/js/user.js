@@ -6,7 +6,8 @@ $(() => {
         $.ajax({
             url: "/rest/getCurrentUser",
             type: "GET",
-            dataType: "json"
+            dataType: "json",
+            headers: {'Authorization': localStorage.getItem('Authorization')}
         }).done((msg) => {
             let user = JSON.parse(JSON.stringify(msg));
             $("#current-user-table tbody").empty().append(

@@ -1,9 +1,9 @@
 package app.service;
 
-import app.dao.RoleRepository;
-import app.dao.UserRepository;
+import app.dao.abstr.UserRepository;
 import app.model.Role;
 import app.model.User;
+import io.grpc.StatusRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,12 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private UserRepository userRepository;
-    private MailService mailService;
+    private MailService_gRPC mailServiceGRPC;
 
     @Autowired
-    public UserService(UserRepository userRepository, MailService mailService) {
+    public UserService(UserRepository userRepository, MailService_gRPC mailServiceGRPC) {
         this.userRepository = userRepository;
-        this.mailService = mailService;
+        this.mailServiceGRPC = mailServiceGRPC;
     }
 
     @Transactional
@@ -36,7 +36,7 @@ public class UserService {
 
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.insertUser(user);
-        mailService.sendGreetingEmail(user.getEmail());
+        mailServiceGRPC.sendGreetingEmail(user.getEmail());
         return true;
     }
 
@@ -50,7 +50,7 @@ public class UserService {
 
     @Transactional
     public void deleteUser(Long id) {
-        mailService.sendEmailOnDeletion(userRepository.selectUserById(id).getEmail());
+        mailServiceGRPC.sendEmailOnDeletion(userRepository.selectUserById(id).getEmail());
         userRepository.deleteUser(id);
     }
 
@@ -75,7 +75,11 @@ public class UserService {
         userRepository.updateUser(userUpd);
 
         updatePrincipal(user, roleSet);
-        mailService.sendEmailOnUpdating(userUpd.getEmail());
+        try {
+            mailServiceGRPC.sendEmailOnUpdating(userUpd.getEmail());
+        } catch (StatusRuntimeException s) {
+            System.out.println("Mail not sent = " + s.getLocalizedMessage());
+        }
     }
 
     public User selectUserById(Long id) {
